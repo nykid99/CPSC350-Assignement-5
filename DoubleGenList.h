@@ -25,7 +25,7 @@ public:
   void insertBack(T data);
   T removeFront();
   int search(int val);// will return position
-  int removeAtpos(int pos);
+  void removeAtpos(int pos);
 
   unsigned int getSize();
   bool isEmpty();
@@ -58,10 +58,6 @@ bool DoubleGenList<T>::isEmpty(){
   return size == 0;
 }
 
-
-
-
-
 template <typename T>
 T DoubleGenList<T>::getFront(){
   return front->data;
@@ -91,11 +87,12 @@ void DoubleGenList<T>::insertBack(T data){
     front = node;
   }
   else{
-    node->prev = back;
     back->next = node;
+    node->prev = back;
 
     //not empty
   }
+  back = node;
   size++;
 }
 
@@ -114,47 +111,56 @@ T DoubleGenList<T>::removeFront(){
 
 
 template <typename T>
-int DoubleGenList<T>::search(int val){
-  int position = -1; //negative position doesn't exist valuenotfound
+int DoubleGenList<T>::search(int val){ //returns the index of the info
+  int position = -1;
   GenListNode<T> *curr = front;
 
   while(curr != NULL){
-    //iterate and attempt to find the value
+
     position++;
 
     if(curr->data == val){
-      break;//found it!
+      break;
     }
     else{
       curr = curr->next;
-      //go to the next once
     }
   }
   if(curr == NULL){
     position = -1;
   }
+  if(position == -1){
+    cout << "This advisee doesn't exist in this list" << endl;
+
+  }
+  else{
+      return position;
+  }
 }
 template <typename T>
-int DoubleGenList<T>::removeAtpos(int pos){
-  //error checking
-  int idx = -1;
-  GenListNode<T> *curr = front;
-  GenListNode<T> *prev = front;
+// https://gist.github.com/Mahmoud-Sami/041b5b843d9a417264e7793a26645697
+void DoubleGenList<T>::removeAtpos(int pos){ //gotta fix this up a little bit
+  if (front == NULL)
+			return;
 
-  //now lets loop until position
-  while(idx != pos){
-    prev = curr;
-    curr = curr->next;
-    idx++;
-  }
-  //we found the position of the node to be deleted
-  prev->next = curr->next;
-  curr->next = NULL;
-  int temp = curr->data;
-  delete curr;
-  size--;
-  return temp;
+		GenListNode<T>* temp = front;
+		if (pos == 0){
+			front = temp->next;
+			if (front)
+				front->prev = NULL;
+			delete temp;
+			return;
+		}
 
+		for (int i = 0; i < pos && temp != NULL; i++)
+			temp = temp->next;
+		if (temp == NULL)
+			return;
+
+		temp->prev->next = temp->next;
+		if (temp->next)
+			temp->next->prev = temp->prev;
+		delete temp;
 }
 
 template <typename T>
@@ -167,7 +173,9 @@ unsigned int DoubleGenList<T>::getSize(){
 template <typename T>
 void DoubleGenList<T>::printList(){
   GenListNode<T> *curr = front;
-
+  if(isEmpty()){
+    cout << "list is empty" << endl;
+  }
   while(curr != NULL){
     cout << curr->data << endl;
     curr = curr->next;

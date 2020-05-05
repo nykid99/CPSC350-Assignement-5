@@ -1,6 +1,7 @@
 #include <iostream>
 #include "TreeNode.h"
-
+#include "Faculty.h"
+#include "Student.h"
 using namespace std;
 
 template <class T>
@@ -16,6 +17,7 @@ public:
   bool isEmpty();
   TreeNode<T>* getMin();
   TreeNode<T>* getMax();
+  TreeNode<T>* returnData(int u);
 
   TreeNode<T>* getSuccessor(TreeNode<T> *d);
   void printTree(TreeNode<T> *node);
@@ -227,4 +229,25 @@ TreeNode<T>* BST<T>::getMax(){
     curr = curr->right;//getmin is opposite of this
   }
   return curr; // if tree consisted of a numeric type curr->key or curr->value
+}
+
+template <class T>
+TreeNode<T>* BST<T>::returnData(int u){
+  if(search(u)){
+    TreeNode<T> *current = root;
+    while (current->key != u){
+      if (u < current->key)
+      {
+          current = current->left;
+      }
+      else
+      {
+          current = current->right;
+      }
+    }
+    return current;
+  }
+  else{
+    cout << "this id doesn't exist" << endl;
+  }
 }
