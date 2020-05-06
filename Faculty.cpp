@@ -38,6 +38,7 @@ void Faculty::printFaculty(){
   cout << "Department:" << department << endl;
   cout << "list of advisee" << endl;
   adviseeIDList->printList();
+  cout << endl;
 }
 
 void Faculty::pushToAIDList(int b){

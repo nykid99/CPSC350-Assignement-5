@@ -8,6 +8,7 @@ using namespace std;
 DatabaseController::DatabaseController(){};
 DatabaseController::~DatabaseController(){};
 
+
 void DatabaseController::printStudentWithNode(TreeNode<Student> *s){
   s->data.printStudent();
 }
@@ -15,6 +16,22 @@ void DatabaseController::printFacultyWithNode(TreeNode<Faculty> *f){
   f->data.printFaculty();
 }
 
+void DatabaseController::removeStudent(int dSID){
+  if(masterStudent.search(dSID)){
+    masterStudent.deleteNode(dSID);
+  }
+  else{
+    cout << "This student doesn't exist in the database" << endl;
+  }
+}
+void DatabaseController::removeFaculty(int dFID){
+  if(masterFaculty.search(dFID)){
+    masterFaculty.deleteNode(dFID);
+  }
+  else{
+    cout << "This Faculty doesn't exist in the database" << endl;
+  }
+}
 
 void DatabaseController::removeAdvisee(int facID, int adviseeID){
   if(masterFaculty.search(facID) && masterFaculty.search(adviseeID)){
@@ -45,7 +62,6 @@ void DatabaseController::printFacultyAdvisee(int fd){
     TreeNode<Faculty> *tempData = new TreeNode<Faculty>();
     tempData = masterFaculty.returnData(fd);
     tempData->data.adviseeIDList->printList();
-
   }
   else{
     cout << "This Faculty doesn't exist" << endl;
@@ -57,7 +73,12 @@ void DatabaseController::printStudentFacultyAdvisor(int sd){ //number 5
     TreeNode<Student> *tempData = new TreeNode<Student>();
     tempData = masterStudent.returnData(sd);
     adviID = tempData->data.advisorID;
-    printFacultyInfo(adviID);
+    if(masterFaculty.search(adviID)){
+      printFacultyInfo(adviID);
+    }
+    else{
+      cout << "This faculty member doesn't exist" << endl;
+    }
   }
   else{
     cout << "This student doesn't exist" << endl;
@@ -66,10 +87,12 @@ void DatabaseController::printStudentFacultyAdvisor(int sd){ //number 5
 void DatabaseController::printStudentinTree(TreeNode<Student> *n){
   if (n != NULL)
     {
+
         if (n->left != NULL)
         {
             printStudentinTree(n->left);
         }
+        // arrayVector.push_back(n->data.StudentID);
         n->data.printStudent();
         if (n->right != NULL)
         {
@@ -80,6 +103,7 @@ void DatabaseController::printStudentinTree(TreeNode<Student> *n){
     {
         cout << ">> Tree is empty<<" << endl;
     }
+
 }
 
 void DatabaseController::printFacultyinTree(TreeNode<Faculty> *x){
@@ -89,6 +113,7 @@ void DatabaseController::printFacultyinTree(TreeNode<Faculty> *x){
         {
             printFacultyinTree(x->left);
         }
+        // farrayVector.push_back(x->data.FacultyID);
         x->data.printFaculty();
         if (x->right != NULL)
         {
@@ -124,6 +149,8 @@ void DatabaseController::addStudent(){
 }
 void DatabaseController::addFaculty(){
   int fid;
+  int fadCount = 1;
+  int fadNum;
   string fn;
   string fl;
   string fdp;
@@ -137,7 +164,16 @@ void DatabaseController::addFaculty(){
   cin >> fdp;
   Faculty *newFaculty = new Faculty(fid, fn, fl, fdp);
   TreeNode<Faculty> *newFacultyNode = new TreeNode<Faculty>(*newFaculty, fid);
+  cout << "Enter the number of advisees this Faculty has: ";
+  cin >> fadNum;
+  for(int y = 0; y < fadNum; ++y){
+    int newADVID;
+    cout << "Enter advisee ID number " << fadCount << ": ";
+    cin >> newADVID;
+    newFacultyNode->data.adviseeIDList->insertBack(newADVID);
+  }
   masterFaculty.insert(newFacultyNode);
+  cout << "Faculty Successfully added" << endl;
 }
 void DatabaseController::printStudentInfo(int y){
   if(masterStudent.search(y)){
@@ -148,8 +184,13 @@ void DatabaseController::printStudentInfo(int y){
   }
 }
 
-void DatabaseController::printFacultyInfo(int z){
-  printFacultyWithNode(masterFaculty.returnData(z));
+void DatabaseController::printFacultyInfo(int g){
+  if(masterFaculty.search(g)){
+    printFacultyWithNode(masterFaculty.returnData(g));
+  }
+  else{
+    cout << "Faculty doesn't exist in the system" << endl;
+  }
 }
 
 void DatabaseController::textReader(){
@@ -223,9 +264,6 @@ void DatabaseController::textReader(){
       for(int u = 0; u < numOfAdvisee; ++u){
         getline(facultyInFile,line);
         tempAID = stoi(line);
-        // TreeNode<Faculty> *tempFacN = new TreeNode<Faculty>();
-        // tempFacN = masterFaculty.returnData(ffID);
-        // tempFacN->data.pushToAIDList(tempAID);
         FacNode->data.pushToAIDList(tempAID);
       }
     }

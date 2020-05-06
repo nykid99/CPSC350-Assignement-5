@@ -15,7 +15,6 @@ public:
   string department;
   string FacultyLevel;
   DoubleGenList<int> *adviseeIDList = new DoubleGenList<int>();
-  list<int> *advIDList;
   string getDepartment();
   int getFacultyID();
   string getFacultyName();
