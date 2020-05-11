@@ -6,7 +6,7 @@
 // This is the header file for the DatabaseController class
 
 #include <iostream>
-#include "BST.h"
+#include "BST.h" //bst and genstack included
 #include "GenStack.h"
 
 
@@ -14,9 +14,9 @@ using namespace std;
 
 class DatabaseController{
 public:
-  DatabaseController();
-  ~DatabaseController();
-  BST<Student> masterStudent;
+  DatabaseController(); //default constructor
+  ~DatabaseController(); //destructor
+  BST<Student> masterStudent; //these are the master bsts for student and faculty objects
   BST<Faculty> masterFaculty;
   void textStudentWithNode(string fName, TreeNode<Student> *ostudent);
   void textFacultyWithNode(string fName, TreeNode<Faculty> *oFaculty);

@@ -17,7 +17,6 @@ class BST{
 public:
   BST();
   ~BST();
-  //virtual ~BST() - when working with template classes
   void insert(TreeNode<T> *node); //which in this example is also our key
   bool search(int value); //which in this example is also our key
   bool deleteNode(int value);
@@ -234,7 +233,7 @@ TreeNode<T>* BST<T>::getMax(){
 }
 
 template <class T>
-TreeNode<T>* BST<T>::returnData(int u){
+TreeNode<T>* BST<T>::returnData(int u){ //returns the treenode in the tree that has the same key as the number entered
   if(search(u)){
     TreeNode<T> *current = root;
     while (current->key != u){

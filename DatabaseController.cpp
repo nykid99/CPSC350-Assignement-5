@@ -8,22 +8,26 @@
 #include <string>
 #include <fstream>
 #include <iostream>
-#include "DatabaseController.h"
+#include "DatabaseController.h" //includes header file
 
 using namespace std;
 
-DatabaseController::DatabaseController(){};
-DatabaseController::~DatabaseController(){};
+DatabaseController::DatabaseController(){ //defaul constructor and destructor
+
+};
+DatabaseController::~DatabaseController(){
+
+};
 
 
-void DatabaseController::printStudentWithNode(TreeNode<Student> *s){
+void DatabaseController::printStudentWithNode(TreeNode<Student> *s){//prints student and faculty info when given node
   s->data.printStudent();
 }
 void DatabaseController::printFacultyWithNode(TreeNode<Faculty> *f){
   f->data.printFaculty();
 }
 
-void DatabaseController::textStudentWithNode(string fName, TreeNode<Student> *ostudent){
+void DatabaseController::textStudentWithNode(string fName, TreeNode<Student> *ostudent){//writes student info to file
   ofstream ofnode;
   ofnode.open(fName);
   if(ostudent != NULL)
@@ -42,7 +46,7 @@ void DatabaseController::textStudentWithNode(string fName, TreeNode<Student> *os
   ofnode.close();
 }
 
-void DatabaseController::textFacultyWithNode(string ffName, TreeNode<Faculty> *oFaculty){
+void DatabaseController::textFacultyWithNode(string ffName, TreeNode<Faculty> *oFaculty){ //writes faculty info to file
   ofstream offnode;
   offnode.open(ffName);
   if (oFaculty != NULL)
@@ -70,7 +74,7 @@ void DatabaseController::textFacultyWithNode(string ffName, TreeNode<Faculty> *o
   offnode.close();
 }
 
-void DatabaseController::textWriter(){
+void DatabaseController::textWriter(){ //writes student and faculty info to file
   ofstream StudentoutFile; // these are for marking the number of students/Faculty
   ofstream FacultyoutFile;
 
@@ -84,10 +88,9 @@ void DatabaseController::textWriter(){
   FacultyoutFile.open("facultyTable.txt");
   if(FacultyoutFile.is_open()){
     FacultyoutFile << masterFaculty.size << endl;
-    // TreeNode<Faculty> *
   }
 }
-void DatabaseController::removeStudent(int dSID){
+void DatabaseController::removeStudent(int dSID){ //removes student from tree
   if(masterStudent.search(dSID)){
     masterStudent.deleteNode(dSID);
   }
@@ -95,7 +98,7 @@ void DatabaseController::removeStudent(int dSID){
     cout << "This student doesn't exist in the database" << endl;
   }
 }
-void DatabaseController::removeFaculty(int dFID){
+void DatabaseController::removeFaculty(int dFID){ //removes faculty from tree
   if(masterFaculty.search(dFID)){
     masterFaculty.deleteNode(dFID);
   }
@@ -104,7 +107,7 @@ void DatabaseController::removeFaculty(int dFID){
   }
 }
 
-void DatabaseController::removeAdvisee(int facID, int adviseeID){
+void DatabaseController::removeAdvisee(int facID, int adviseeID){ //removes an advisee from a faculty
   if(masterFaculty.search(facID) && masterFaculty.search(adviseeID)){
     int position = 0;
     TreeNode<Faculty> *newFacultyNode = new TreeNode<Faculty>();
@@ -117,7 +120,7 @@ void DatabaseController::removeAdvisee(int facID, int adviseeID){
     cout << "Faculty ID entered doesn't exist check both inputs" << endl;
   }
 }
-void DatabaseController::changeStudentsAdvisor(int newSID, int newFID){
+void DatabaseController::changeStudentsAdvisor(int newSID, int newFID){ //changes student's advisor
   if(masterStudent.search(newSID) && masterFaculty.search(newFID)){
     TreeNode<Student> *newStudentNode = new TreeNode<Student>();
     newStudentNode = masterStudent.returnData(newSID);
@@ -128,7 +131,7 @@ void DatabaseController::changeStudentsAdvisor(int newSID, int newFID){
     cout << "Either the student or the faculty doesn't exist" << endl;
   }
 }
-void DatabaseController::printFacultyAdvisee(int fd){
+void DatabaseController::printFacultyAdvisee(int fd){//prints the id number of the advisees that a faculty member has
   if(masterFaculty.search(fd)){
     TreeNode<Faculty> *tempData = new TreeNode<Faculty>();
     tempData = masterFaculty.returnData(fd);
@@ -138,7 +141,7 @@ void DatabaseController::printFacultyAdvisee(int fd){
     cout << "This Faculty doesn't exist" << endl;
   }
 }
-void DatabaseController::printStudentFacultyAdvisor(int sd){ //number 5
+void DatabaseController::printStudentFacultyAdvisor(int sd){//prints student's faulty advisor
   if(masterStudent.search(sd)){
     int adviID;
     TreeNode<Student> *tempData = new TreeNode<Student>();
@@ -155,7 +158,7 @@ void DatabaseController::printStudentFacultyAdvisor(int sd){ //number 5
     cout << "This student doesn't exist" << endl;
   }
 }
-void DatabaseController::printStudentinTree(TreeNode<Student> *n){
+void DatabaseController::printStudentinTree(TreeNode<Student> *n){//prints all the students in the tree
   if (n != NULL)
     {
 
@@ -177,7 +180,7 @@ void DatabaseController::printStudentinTree(TreeNode<Student> *n){
 
 }
 
-void DatabaseController::printFacultyinTree(TreeNode<Faculty> *x){
+void DatabaseController::printFacultyinTree(TreeNode<Faculty> *x){ //prints all the faculty in the tree
   if (x != NULL)
     {
         if (x->left != NULL)
@@ -196,14 +199,14 @@ void DatabaseController::printFacultyinTree(TreeNode<Faculty> *x){
     }
 }
 
-void DatabaseController::addStudent(){
-  string n;
+void DatabaseController::addStudent(){ //adds a new student to the tree
+  string n; //variables needed for creating student
   int di;
   string sl;
   string mj;
   double pga;
   int adi;
-  cout << "Enter the name of the student: ";
+  cout << "Enter the name of the student: "; //asks user for the inputs
   cin >> n;
   cout << "Enter the id number of the student: ";
   cin >> di;
@@ -213,18 +216,18 @@ void DatabaseController::addStudent(){
   cin >> pga;
   cout << "Enter the advisor ID of the student: ";
   cin >> adi;
-  Student *newStudent = new Student(di, n, sl, mj, pga, adi);
+  Student *newStudent = new Student(di, n, sl, mj, pga, adi); //creates a new student and a node using the inputs
   TreeNode<Student> *newStudentNode = new TreeNode<Student>(*newStudent, di);
-  masterStudent.insert(newStudentNode);
+  masterStudent.insert(newStudentNode); //inserts it into the tree
 }
-void DatabaseController::addFaculty(){
-  int fid;
+void DatabaseController::addFaculty(){ //adds a new faculty to the tree
+  int fid; //variables needed for adding the faculty
   int fadCount = 1;
   int fadNum;
   string fn;
   string fl;
   string fdp;
-  cout << "Enter the name of the Faculty: ";
+  cout << "Enter the name of the Faculty: "; //asks user for info
   cin >> fn;
   cout << "Enter the id number of the Faculty: ";
   cin >> fid;
@@ -232,9 +235,9 @@ void DatabaseController::addFaculty(){
   cin >> fl;
   cout << "Enter the department of the Faculty: ";
   cin >> fdp;
-  Faculty *newFaculty = new Faculty(fid, fn, fl, fdp);
+  Faculty *newFaculty = new Faculty(fid, fn, fl, fdp); //creates new faculty with given info
   TreeNode<Faculty> *newFacultyNode = new TreeNode<Faculty>(*newFaculty, fid);
-  cout << "Enter the number of advisees this Faculty has: ";
+  cout << "Enter the number of advisees this Faculty has: "; //allows user to enter advisee ids
   cin >> fadNum;
   for(int y = 0; y < fadNum; ++y){
     int newADVID;
@@ -242,10 +245,10 @@ void DatabaseController::addFaculty(){
     cin >> newADVID;
     newFacultyNode->data.adviseeIDList->insertBack(newADVID);
   }
-  masterFaculty.insert(newFacultyNode);
+  masterFaculty.insert(newFacultyNode); //insert the faculty into tree
   cout << "Faculty Successfully added" << endl;
 }
-void DatabaseController::printStudentInfo(int y){
+void DatabaseController::printStudentInfo(int y){ //prints student info when given an id number
   if(masterStudent.search(y)){
     printStudentWithNode(masterStudent.returnData(y));
   }
@@ -254,7 +257,7 @@ void DatabaseController::printStudentInfo(int y){
   }
 }
 
-void DatabaseController::printFacultyInfo(int g){
+void DatabaseController::printFacultyInfo(int g){ //prints faculty info when given an id number
   if(masterFaculty.search(g)){
     printFacultyWithNode(masterFaculty.returnData(g));
   }
@@ -263,8 +266,8 @@ void DatabaseController::printFacultyInfo(int g){
   }
 }
 
-void DatabaseController::textReader(){
-  ifstream studentInFile;
+void DatabaseController::textReader(){ //reads text files
+  ifstream studentInFile;//variables that are going to be stored from the textfiles
   ifstream facultyInFile;
   int fsid;
   string fsname;
@@ -276,12 +279,12 @@ void DatabaseController::textReader(){
   int numOfStudents;
   int tempDouble;
 
-  studentInFile.open("studentTable.txt");
+  studentInFile.open("studentTable.txt"); //studentTable is opened
 
-  if(studentInFile.is_open()){
-    getline(studentInFile,line);
+  if(studentInFile.is_open()){ //if the file is open
+    getline(studentInFile,line);//first line indicates how many students are going to be entered
     numOfStudents = stoi(line);
-    for(int i = 0; i<numOfStudents;++i){
+    for(int i = 0; i<numOfStudents;++i){ //each line is read and information is gathered
       getline(studentInFile,line);
       fsid = stoi(line);
       getline(studentInFile,line);
@@ -294,17 +297,17 @@ void DatabaseController::textReader(){
       fsgpa = stod(line);
       getline(studentInFile,line);
       fsadvisorID = stoi(line);
-      Student *newFstudent = new Student(fsid, fsname, fslevel, fsmajor, fsgpa, fsadvisorID);
+      Student *newFstudent = new Student(fsid, fsname, fslevel, fsmajor, fsgpa, fsadvisorID); //student created and inserted
       TreeNode<Student> *studNode = new TreeNode<Student>(*newFstudent, fsid);
       masterStudent.insert(studNode);
     }
-    studentInFile.close();
+    studentInFile.close(); //file closed
   }
   else{
     cout << "masterStudent didn't open up" << endl;
   }
 
-  int numOfFaculty;
+  int numOfFaculty; //faculty info variables
   int ffID;
   string ffname;
   string fflevel;
@@ -313,11 +316,11 @@ void DatabaseController::textReader(){
   int tempAID;
 
 
-  facultyInFile.open("facultyTable.txt");
+  facultyInFile.open("facultyTable.txt");//faculty file opened
   if(facultyInFile.is_open()){
-    getline(facultyInFile,line);
+    getline(facultyInFile,line); //first line is how many faculty members are going to be enetered
     numOfFaculty = stoi(line);
-    for(int i = 0; i<numOfFaculty;++i){
+    for(int i = 0; i<numOfFaculty;++i){ //inputs read from file
       getline(facultyInFile,line);
       ffID = stoi(line);
       getline(facultyInFile,line);
@@ -326,18 +329,18 @@ void DatabaseController::textReader(){
       fflevel = line;
       getline(facultyInFile,line);
       ffdepartment = line;
-      Faculty *newFFaculty = new Faculty(ffID, ffname, fflevel, ffdepartment);
+      Faculty *newFFaculty = new Faculty(ffID, ffname, fflevel, ffdepartment); //new faculty created
       TreeNode<Faculty> *FacNode = new TreeNode<Faculty>(*newFFaculty, ffID);
-      masterFaculty.insert(FacNode);
+      masterFaculty.insert(FacNode); //faculty inserted
       getline(facultyInFile,line);
-      numOfAdvisee = stoi(line);
-      for(int u = 0; u < numOfAdvisee; ++u){
+      numOfAdvisee = stoi(line);//number of advisee inputted
+      for(int u = 0; u < numOfAdvisee; ++u){ //advisee IDs read
         getline(facultyInFile,line);
         tempAID = stoi(line);
         FacNode->data.pushToAIDList(tempAID);
       }
     }
-    facultyInFile.close();
+    facultyInFile.close(); //faculty file closed
   }
   else{
     cout << "masterFaculty didn't open up";

@@ -138,8 +138,7 @@ int DoubleGenList<T>::search(int val){ //returns the index of the info
   }
 }
 template <typename T>
-// https://gist.github.com/Mahmoud-Sami/041b5b843d9a417264e7793a26645697
-void DoubleGenList<T>::removeAtpos(int pos){ //gotta fix this up a little bit
+void DoubleGenList<T>::removeAtpos(int pos){ 
   if (front == NULL)
 			return;
 		GenListNode<T>* temp = front;

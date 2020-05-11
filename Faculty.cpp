@@ -11,15 +11,15 @@
 using namespace std;
 
 
-Faculty::Faculty(){
+Faculty::Faculty(){//default constrctor
 
 }
 
-Faculty::~Faculty(){
+Faculty::~Faculty(){ //destructor
 
 }
 
-Faculty::Faculty(int i, string n, string l, string d){
+Faculty::Faculty(int i, string n, string l, string d){//overloaded constructor
   FacultyID = i;
   FacultyName = n;
   FacultyLevel = l;
@@ -27,18 +27,18 @@ Faculty::Faculty(int i, string n, string l, string d){
 }
 
 
-string Faculty::getDepartment(){
+string Faculty::getDepartment(){ //returns department
   return department;
 }
 
-int Faculty::getFacultyID(){
+int Faculty::getFacultyID(){ //returns faculty id
   return FacultyID;
 }
-string Faculty::getFacultyName(){
+string Faculty::getFacultyName(){ //returns faculty name
   return FacultyName;
 }
 
-void Faculty::printFaculty(){
+void Faculty::printFaculty(){ //prints faculty
   cout << "FacultyID: " << FacultyID << endl;
   cout << "FacultyName: " << FacultyName << endl;
   cout << "FacultyLevel: " << FacultyLevel << endl;
@@ -48,6 +48,6 @@ void Faculty::printFaculty(){
   cout << endl;
 }
 
-void Faculty::pushToAIDList(int b){
+void Faculty::pushToAIDList(int b){ //pushes id to the faculty's advisee list
   adviseeIDList->insertBack(b);
 }

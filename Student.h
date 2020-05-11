@@ -4,7 +4,7 @@ using namespace std;
 
 class Student{
 public:
-  string StudentName;
+  string StudentName;//variables for student
   int StudentID;
   string Studentlevel;
   string major;
@@ -12,7 +12,7 @@ public:
   int advisorID;
 
   Student();
-  Student(int i, string n, string l, string m, double g, int aid);
+  Student(int i, string n, string l, string m, double g, int aid); 
   ~Student();
   string getStudentName();
   int getStudentID();

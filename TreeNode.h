@@ -1,3 +1,10 @@
+// # Cpsc350-Assignment-5
+// Kenneth Cho
+// 2325383
+// kecho@chapman.edu
+// cpsc350-1
+// This is the header file for the TreeNode template class
+
 #include <iostream>
 
 using namespace std;
@@ -5,9 +12,9 @@ using namespace std;
 template <class T>
 class TreeNode{
 public:
-  TreeNode();
-  TreeNode(T d,int k);
-  ~TreeNode();
+  TreeNode(); //default constructor
+  TreeNode(T d,int k); //data and key
+  ~TreeNode(); //destructor
 
   T data;
   int key;

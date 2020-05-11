@@ -3,7 +3,7 @@
 // 2325383
 // kecho@chapman.edu
 // cpsc350-1
-// This is the header file for the DoubleGenList template class
+// This is the header file for the GenListNode template class
 
 
 #include <iostream>

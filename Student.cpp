@@ -10,11 +10,11 @@
 
 using namespace std;
 
-Student::Student(){
+Student::Student(){//default constructor
 
 }
 
-Student::Student(int i, string n, string l, string m, double g, int aid){
+Student::Student(int i, string n, string l, string m, double g, int aid){ //overloaded constructor
   StudentID = i;
   StudentName = n;
   Studentlevel = l;
@@ -23,29 +23,29 @@ Student::Student(int i, string n, string l, string m, double g, int aid){
   advisorID = aid;
 }
 
-Student::~Student(){
+Student::~Student(){ //destructor
 
 };
 
-string Student::getMajor(){
+string Student::getMajor(){ //returns major
   return major;
 }
 
-double Student::getGPA(){
+double Student::getGPA(){ //returns gpa
   return gpa;
 }
 
-int Student::getAdvisorID(){
+int Student::getAdvisorID(){ //returns advisor id
   return advisorID;
 }
-int Student::getStudentID(){
+int Student::getStudentID(){ //returns student id
   return StudentID;
 }
-string Student::getStudentName(){
+string Student::getStudentName(){ //returns name of student
   return StudentName;
 }
 
-void Student::printStudent(){
+void Student::printStudent(){ //prints student info
   cout << "ID: " << StudentID << endl;
   cout << "Name: " << StudentName << endl;
   cout << "Level: " << Studentlevel << endl;
