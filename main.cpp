@@ -88,6 +88,7 @@ int main(int argc, char const *argv[]) {
       cout << endl;
       d1->removeStudent(ddsid);
       cout << "Student successfully removed" << endl;
+      cout << endl;
     }
     else if(userInput == 9){//adds faculty
       cout << "Adding new Faculty" << endl;
@@ -100,6 +101,7 @@ int main(int argc, char const *argv[]) {
       cout << endl;
       d1->removeFaculty(ddfid);
       cout << "Faculty member successfully removed" << endl;
+      cout << endl;
     }
     else if(userInput == 11){//replaces student advisor
       int newfidNum;
@@ -133,6 +135,7 @@ int main(int argc, char const *argv[]) {
     else if(userInput == 15){ //writes to text
       d1->textWriter();
       cout << "info successfully outputted" << endl;
+      cout << endl;
     }
     else if(userInput == 16){//changes student info
       //student info change
@@ -166,6 +169,7 @@ int main(int argc, char const *argv[]) {
           cout << endl;
           newS->data.StudentName = newStudentName;
           cout << "Student name changed" << endl;
+          cout << endl;
         }
         else if(schoice ==2){ //modifies level
           cout << "Enter new level: ";
@@ -173,6 +177,7 @@ int main(int argc, char const *argv[]) {
           cout << endl;
           newS->data.Studentlevel = newStudentlevel;
           cout << "Student level changed" << endl;
+          cout << endl;
         }
         else if(schoice == 3){//modifies major
           cout << "Enter new major: ";
@@ -180,6 +185,7 @@ int main(int argc, char const *argv[]) {
           cout << endl;
           newS-> data.major = newStudentmajor;
           cout << "Student major changed" << endl;
+          cout << endl;
         }
         else if(schoice == 4){ //modifies GPA
           cout << "Enter new student GPA: ";
@@ -187,6 +193,7 @@ int main(int argc, char const *argv[]) {
           cout << endl;
           newS->data.gpa = newStudentGPA;
           cout << "Student GPA changed" << endl;
+          cout << endl;
         }
         else if(schoice == 5){ //modifies advisor ID
           cout << "Enter new student advisor ID: ";
@@ -194,6 +201,7 @@ int main(int argc, char const *argv[]) {
           cout << endl;
           newS->data.advisorID = newStudentAID;
           cout << "Student Advisor changed" << endl;
+          cout << endl;
         }
         else if(schoice == 6){ //exits loop and returns to main menu
           sflag = 0;
@@ -261,6 +269,7 @@ int main(int argc, char const *argv[]) {
       d1->masterStudent.deleteNode(oldMSID);
       d1->masterStudent.insert(newMS);
       cout << "Id number successfully changed" << endl;
+      cout << endl;
 
 
     }
@@ -279,6 +288,7 @@ int main(int argc, char const *argv[]) {
       d1->masterFaculty.deleteNode(oldFSID);
       d1->masterFaculty.insert(newMF);
       cout << "Id number successfully changed" << endl;
+      cout << endl;
     }
     else{
       cout << "Invalid input, Please try again" << endl;

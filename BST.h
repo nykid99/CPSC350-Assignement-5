@@ -4,8 +4,6 @@
 // kecho@chapman.edu
 // cpsc350-1
 // This is the header file for the Binary search tree template class
-
-
 #include <iostream>
 #include "TreeNode.h"
 #include "Faculty.h"
