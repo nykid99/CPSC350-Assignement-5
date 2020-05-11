@@ -1,3 +1,10 @@
+// # Cpsc350-Assignment-5
+// Kenneth Cho
+// 2325383
+// kecho@chapman.edu
+// cpsc350-1
+// This is the cpp file for the DatabaseController class
+
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -16,6 +23,70 @@ void DatabaseController::printFacultyWithNode(TreeNode<Faculty> *f){
   f->data.printFaculty();
 }
 
+void DatabaseController::textStudentWithNode(string fName, TreeNode<Student> *ostudent){
+  ofstream ofnode;
+  ofnode.open(fName);
+  if(ostudent != NULL)
+  {
+    ofnode << ostudent->data.StudentID << "\n"<< ostudent->data.StudentName << "\n" << ostudent->data.Studentlevel << "\n" << ostudent->data.major << "\n" << ostudent->data.gpa << "\n" << ostudent->data.advisorID << "\n";
+
+      if (ostudent->left != NULL)
+      {
+          textStudentWithNode(fName, ostudent->left);
+      }
+      if (ostudent->right != NULL)
+      {
+          textStudentWithNode(fName, ostudent->right);
+      }
+  }
+  ofnode.close();
+}
+
+void DatabaseController::textFacultyWithNode(string ffName, TreeNode<Faculty> *oFaculty){
+  ofstream offnode;
+  offnode.open(ffName);
+  if (oFaculty != NULL)
+  {
+    offnode << oFaculty->data.FacultyID << endl << oFaculty->data.FacultyName << endl << oFaculty->data.FacultyLevel << endl << oFaculty->data.department << endl << oFaculty->data.adviseeIDList->size << endl;
+    GenListNode<int> *currfac = oFaculty->data.adviseeIDList->front;
+    if(oFaculty->data.adviseeIDList->isEmpty()){
+      offnode << "advisee list is empty" << endl;
+    }
+    else{
+      while(currfac!=NULL){
+        offnode << currfac->data << endl;
+        currfac = currfac->next;
+      }
+    }
+    if (oFaculty->left != NULL)
+    {
+        textFacultyWithNode(ffName, oFaculty->left);
+    }
+    if (oFaculty->right != NULL)
+    {
+        textFacultyWithNode(ffName, oFaculty->right);
+    }
+  }
+  offnode.close();
+}
+
+void DatabaseController::textWriter(){
+  ofstream StudentoutFile; // these are for marking the number of students/Faculty
+  ofstream FacultyoutFile;
+
+  StudentoutFile.open("studentTable.txt");
+  if(StudentoutFile.is_open()){
+    StudentoutFile << masterStudent.size << endl;
+    TreeNode<Student> *ofstudent = masterStudent.root;
+    textStudentWithNode("studentTable.txt", ofstudent);
+  }
+  StudentoutFile.close();
+  FacultyoutFile.open("facultyTable.txt");
+  if(FacultyoutFile.is_open()){
+    FacultyoutFile << masterFaculty.size << endl;
+    // TreeNode<Faculty> *
+  }
+}
 void DatabaseController::removeStudent(int dSID){
   if(masterStudent.search(dSID)){
     masterStudent.deleteNode(dSID);
@@ -113,7 +184,6 @@ void DatabaseController::printFacultyinTree(TreeNode<Faculty> *x){
         {
             printFacultyinTree(x->left);
         }
-        // farrayVector.push_back(x->data.FacultyID);
         x->data.printFaculty();
         if (x->right != NULL)
         {

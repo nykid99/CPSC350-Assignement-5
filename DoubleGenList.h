@@ -54,17 +54,17 @@ DoubleGenList<T>::DoubleGenList(int d){
 
 
 template <typename T>
-bool DoubleGenList<T>::isEmpty(){
+bool DoubleGenList<T>::isEmpty(){ //checks if empty
   return size == 0;
 }
 
 template <typename T>
-T DoubleGenList<T>::getFront(){
+T DoubleGenList<T>::getFront(){ //gets the front data
   return front->data;
 }
 
 template <typename T>
-void DoubleGenList<T>::insertFront(T data){
+void DoubleGenList<T>::insertFront(T data){ //inserts to the front
   GenListNode<T> *node = new GenListNode<T>(data);
   //check if empty
   if(isEmpty()){
@@ -80,7 +80,7 @@ void DoubleGenList<T>::insertFront(T data){
 }
 
 template <typename T>
-void DoubleGenList<T>::insertBack(T data){
+void DoubleGenList<T>::insertBack(T data){ //inserts to the back
   GenListNode<T> *node = new GenListNode<T>(data);
   //check if empty
   if(isEmpty()){
@@ -142,21 +142,19 @@ template <typename T>
 void DoubleGenList<T>::removeAtpos(int pos){ //gotta fix this up a little bit
   if (front == NULL)
 			return;
-
 		GenListNode<T>* temp = front;
 		if (pos == 0){
 			front = temp->next;
-			if (front)
-				front->prev = NULL;
+			if (front){
+        front->prev = NULL;
+      }
 			delete temp;
 			return;
 		}
-
 		for (int i = 0; i < pos && temp != NULL; i++)
 			temp = temp->next;
 		if (temp == NULL)
 			return;
-
 		temp->prev->next = temp->next;
 		if (temp->next)
 			temp->next->prev = temp->prev;
@@ -164,14 +162,14 @@ void DoubleGenList<T>::removeAtpos(int pos){ //gotta fix this up a little bit
 }
 
 template <typename T>
-unsigned int DoubleGenList<T>::getSize(){
+unsigned int DoubleGenList<T>::getSize(){ //returns the size
   return size;
 
 }
 
 
 template <typename T>
-void DoubleGenList<T>::printList(){
+void DoubleGenList<T>::printList(){ //prints the entire list
   GenListNode<T> *curr = front;
   if(isEmpty()){
     cout << "list is empty" << endl;

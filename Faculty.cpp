@@ -1,3 +1,10 @@
+// # Cpsc350-Assignment-5
+// Kenneth Cho
+// 2325383
+// kecho@chapman.edu
+// cpsc350-1
+// This is the cpp file for the Faculty class
+
 #include "Faculty.h"
 #include <iostream>
 

@@ -1,8 +1,14 @@
+// # Cpsc350-Assignment-5
+// Kenneth Cho
+// 2325383
+// kecho@chapman.edu
+// cpsc350-1
+// This is the header file for the DatabaseController class
+
 #include <iostream>
 #include "BST.h"
 #include "GenStack.h"
-#include "vector"
-#include "algorithm"
+
 
 using namespace std;
 
@@ -12,8 +18,8 @@ public:
   ~DatabaseController();
   BST<Student> masterStudent;
   BST<Faculty> masterFaculty;
-  vector <int> arrayVector;
-  vector <int> farrayVector;
+  void textStudentWithNode(string fName, TreeNode<Student> *ostudent);
+  void textFacultyWithNode(string fName, TreeNode<Faculty> *oFaculty);
   void printStudentinTree(TreeNode<Student> *n);
   void printFacultyinTree(TreeNode<Faculty> *x);
   void printSortedStudent();
